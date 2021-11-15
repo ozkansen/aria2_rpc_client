@@ -21,11 +21,26 @@ build-backend = "poetry.core.masonry.api"
 [tool.isort]
 profile = "black"
 src_paths = ["aria2_rpc_client"]
+line_length = 88
 force_single_line = true
+multi_line_output = 3
+include_trailing_comma = true
+virtual_env = ".venv"
 
 [tool.black]
 line-length = 88
 target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    \.vscode
+  | \.mypy_cache
+  | \.venv
+  | build
+  | dist
+)/
+'''
 
 [tool.mypy]
 python_version = "3.8"
