@@ -26,6 +26,20 @@ class Client(ABC):
         return GID(response)
 
     @abstractmethod
+    def pause(self, gid: GID) -> GID:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.pause"""
+
+        response = self.call("aria2.pause")(gid)
+        return GID(response)
+
+    @abstractmethod
+    def force_pause(self, gid: GID) -> GID:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forcePause"""
+
+        response = self.call("aria2.forcePause")(gid)
+        return GID(response)
+
+    @abstractmethod
     def remove(self, gid: GID) -> GID:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.remove"""
 
@@ -67,6 +81,14 @@ class DefaultClient(Client):
     def add_uri(self, urls: List[str], *params: Any) -> GID:
         result = super().add_uri(urls, *params)
         return result
+
+    def pause(self, gid: GID) -> GID:
+        response = super().pause(gid)
+        return response
+
+    def force_pause(self, gid: GID) -> GID:
+        response = super().force_pause(gid)
+        return response
 
     def remove(self, gid: GID) -> GID:
         response = super().remove(gid)
