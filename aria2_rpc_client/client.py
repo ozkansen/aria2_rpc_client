@@ -54,6 +54,20 @@ class Client(ABC):
         return GID(response)
 
     @abstractmethod
+    def pause_all(self) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.pauseAll"""
+
+        response = self.call("aria2.pauseAll")
+        return str(response)
+
+    @abstractmethod
+    def force_pause_all(self) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forcePauseAll"""
+
+        response = self.call("aria2.forcePauseAll")
+        return str(response)
+
+    @abstractmethod
     def list_methods(self) -> List[str]:
         """https://aria2.github.io/manual/en/html/aria2c.html#system.listMethods"""
 
@@ -96,6 +110,14 @@ class DefaultClient(Client):
 
     def force_remove(self, gid: GID) -> GID:
         response = super().force_remove(gid)
+        return response
+
+    def pause_all(self) -> str:
+        response = super().pause_all()
+        return response
+
+    def force_pause_all(self) -> str:
+        response = super().force_pause_all()
         return response
 
     def list_methods(self) -> List[str]:
