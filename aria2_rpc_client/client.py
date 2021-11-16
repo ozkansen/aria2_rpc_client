@@ -40,6 +40,20 @@ class Client(ABC):
         return GID(response)
 
     @abstractmethod
+    def unpause(self, gid: GID) -> GID:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.unpause"""
+
+        response = self.call("aria2.unpause")(gid)
+        return GID(response)
+
+    @abstractmethod
+    def unpause_all(self) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.unpauseAll"""
+
+        response = self.call("aria2.unpauseAll")
+        return str(response)
+
+    @abstractmethod
     def remove(self, gid: GID) -> GID:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.remove"""
 
@@ -102,6 +116,14 @@ class DefaultClient(Client):
 
     def force_pause(self, gid: GID) -> GID:
         response = super().force_pause(gid)
+        return response
+
+    def unpause(self, gid: GID) -> GID:
+        response = super().unpause(gid)
+        return response
+
+    def unpause_all(self) -> str:
+        response = super().unpause_all()
         return response
 
     def remove(self, gid: GID) -> GID:
