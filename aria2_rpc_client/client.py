@@ -29,21 +29,21 @@ class Client(ABC):
     def pause(self, gid: GID) -> GID:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.pause"""
 
-        response = self.call("aria2.pause")(gid)
+        response = self.call("aria2.pause", gid)
         return GID(response)
 
     @abstractmethod
     def force_pause(self, gid: GID) -> GID:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forcePause"""
 
-        response = self.call("aria2.forcePause")(gid)
+        response = self.call("aria2.forcePause", gid)
         return GID(response)
 
     @abstractmethod
     def unpause(self, gid: GID) -> GID:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.unpause"""
 
-        response = self.call("aria2.unpause")(gid)
+        response = self.call("aria2.unpause", gid)
         return GID(response)
 
     @abstractmethod
@@ -57,14 +57,14 @@ class Client(ABC):
     def remove(self, gid: GID) -> GID:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.remove"""
 
-        response = self.call("aria2.remove")(gid)
+        response = self.call("aria2.remove", gid)
         return GID(response)
 
     @abstractmethod
     def force_remove(self, gid: GID) -> GID:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forceRemove"""
 
-        response = self.call("aria2.forceRemove")(gid)
+        response = self.call("aria2.forceRemove", gid)
         return GID(response)
 
     @abstractmethod
