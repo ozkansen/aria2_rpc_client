@@ -26,6 +26,20 @@ class Client(ABC):
         return GID(response)
 
     @abstractmethod
+    def remove(self, gid: GID) -> GID:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.remove"""
+
+        response = self.call("aria2.remove")(gid)
+        return GID(response)
+
+    @abstractmethod
+    def force_remove(self, gid: GID) -> GID:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forceRemove"""
+
+        response = self.call("aria2.forceRemove")(gid)
+        return GID(response)
+
+    @abstractmethod
     def list_methods(self) -> List[str]:
         """https://aria2.github.io/manual/en/html/aria2c.html#system.listMethods"""
 
@@ -53,6 +67,14 @@ class DefaultClient(Client):
     def add_uri(self, urls: List[str], *params: Any) -> GID:
         result = super().add_uri(urls, *params)
         return result
+
+    def remove(self, gid: GID) -> GID:
+        response = super().remove(gid)
+        return response
+
+    def force_remove(self, gid: GID) -> GID:
+        response = super().force_remove(gid)
+        return response
 
     def list_methods(self) -> List[str]:
         response = super().list_methods()
