@@ -126,6 +126,13 @@ class Client(ABC):
         response = self.call("aria2.getSessionInfo")
         return SessionInfo(**response)
 
+    @abstractmethod
+    def save_session(self) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.saveSession"""
+
+        response = self.call("aria2.saveSession")
+        return str(response)
+
 
 class DefaultClient(Client):
     def add_uri(self, urls: List[str], *params: Any) -> GID:
@@ -186,4 +193,8 @@ class DefaultClient(Client):
 
     def get_session_info(self) -> SessionInfo:
         response = super().get_session_info()
+        return response
+
+    def save_session(self) -> str:
+        response = super().save_session()
         return response
