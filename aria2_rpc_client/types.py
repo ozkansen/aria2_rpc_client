@@ -1,8 +1,5 @@
 from dataclasses import dataclass
 from typing import List
-from typing import NewType
-
-GID = NewType("GID", str)
 
 
 @dataclass(frozen=True)

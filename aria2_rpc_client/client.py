@@ -4,7 +4,6 @@ from typing import Any
 from typing import List
 
 from .connection import Connection
-from .types import GID
 from .types import GlobalStat
 from .types import SessionInfo
 from .types import Version
@@ -20,32 +19,32 @@ class Client(ABC):
         return response
 
     @abstractmethod
-    def add_uri(self, urls: List[str], *params: Any) -> GID:
+    def add_uri(self, urls: List[str], *params: Any) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.addUri"""
 
         response = self.call("aria2.addUri", urls, *params)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
-    def pause(self, gid: GID) -> GID:
+    def pause(self, gid: str) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.pause"""
 
         response = self.call("aria2.pause", gid)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
-    def force_pause(self, gid: GID) -> GID:
+    def force_pause(self, gid: str) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forcePause"""
 
         response = self.call("aria2.forcePause", gid)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
-    def unpause(self, gid: GID) -> GID:
+    def unpause(self, gid: str) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.unpause"""
 
         response = self.call("aria2.unpause", gid)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
     def unpause_all(self) -> str:
@@ -55,18 +54,18 @@ class Client(ABC):
         return str(response)
 
     @abstractmethod
-    def remove(self, gid: GID) -> GID:
+    def remove(self, gid: str) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.remove"""
 
         response = self.call("aria2.remove", gid)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
-    def force_remove(self, gid: GID) -> GID:
+    def force_remove(self, gid: str) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forceRemove"""
 
         response = self.call("aria2.forceRemove", gid)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
     def pause_all(self) -> str:
@@ -135,19 +134,19 @@ class Client(ABC):
 
 
 class DefaultClient(Client):
-    def add_uri(self, urls: List[str], *params: Any) -> GID:
+    def add_uri(self, urls: List[str], *params: Any) -> str:
         result = super().add_uri(urls, *params)
         return result
 
-    def pause(self, gid: GID) -> GID:
+    def pause(self, gid: str) -> str:
         response = super().pause(gid)
         return response
 
-    def force_pause(self, gid: GID) -> GID:
+    def force_pause(self, gid: str) -> str:
         response = super().force_pause(gid)
         return response
 
-    def unpause(self, gid: GID) -> GID:
+    def unpause(self, gid: str) -> str:
         response = super().unpause(gid)
         return response
 
@@ -155,11 +154,11 @@ class DefaultClient(Client):
         response = super().unpause_all()
         return response
 
-    def remove(self, gid: GID) -> GID:
+    def remove(self, gid: str) -> str:
         response = super().remove(gid)
         return response
 
-    def force_remove(self, gid: GID) -> GID:
+    def force_remove(self, gid: str) -> str:
         response = super().force_remove(gid)
         return response
 
