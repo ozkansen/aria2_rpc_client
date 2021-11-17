@@ -19,3 +19,8 @@ class GlobalStat:
 class Version:
     enabledFeatures: List[str]
     version: str
+
+
+@dataclass(frozen=True)
+class SessionInfo:
+    sessionId: str

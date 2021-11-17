@@ -6,6 +6,7 @@ from typing import List
 from .connection import Connection
 from .types import GID
 from .types import GlobalStat
+from .types import SessionInfo
 from .types import Version
 
 
@@ -118,6 +119,13 @@ class Client(ABC):
         response = self.call("aria2.forceShutdown")
         return str(response)
 
+    @abstractmethod
+    def get_session_info(self) -> SessionInfo:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.getSessionInfo"""
+
+        response = self.call("aria2.getSessionInfo")
+        return SessionInfo(**response)
+
 
 class DefaultClient(Client):
     def add_uri(self, urls: List[str], *params: Any) -> GID:
@@ -174,4 +182,8 @@ class DefaultClient(Client):
 
     def force_shutdown(self) -> str:
         response = super().force_shutdown()
+        return response
+
+    def get_session_info(self) -> SessionInfo:
+        response = super().get_session_info()
         return response
