@@ -104,6 +104,20 @@ class Client(ABC):
         version = Version(**response)
         return version
 
+    @abstractmethod
+    def shutdown(self) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.shutdown"""
+
+        response = self.call("aria2.shutdown")
+        return str(response)
+
+    @abstractmethod
+    def force_shutdown(self) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forceShutdown"""
+
+        response = self.call("aria2.forceShutdown")
+        return str(response)
+
 
 class DefaultClient(Client):
     def add_uri(self, urls: List[str], *params: Any) -> GID:
@@ -152,4 +166,12 @@ class DefaultClient(Client):
 
     def get_version(self) -> Version:
         response = super().get_version()
+        return response
+
+    def shutdown(self) -> str:
+        response = super().shutdown()
+        return response
+
+    def force_shutdown(self) -> str:
+        response = super().force_shutdown()
         return response
