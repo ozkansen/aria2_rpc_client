@@ -1,6 +1,7 @@
 from abc import ABC
 from abc import abstractmethod
 from typing import Any
+from typing import Dict
 from typing import List
 
 from .connection import Connection
@@ -132,6 +133,20 @@ class Client(ABC):
         response = self.call("aria2.saveSession")
         return str(response)
 
+    @abstractmethod
+    def get_option(self, gid: str) -> Dict[str, str]:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.getOption"""
+
+        response = self.call("aria2.getOption", gid)
+        return dict(response)
+
+    @abstractmethod
+    def get_global_option(self) -> Dict[str, str]:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.getGlobalOption"""
+
+        response = self.call("aria2.getGlobalOption")
+        return dict(response)
+
 
 class DefaultClient(Client):
     def add_uri(self, urls: List[str], *params: Any) -> str:
@@ -196,4 +211,14 @@ class DefaultClient(Client):
 
     def save_session(self) -> str:
         response = super().save_session()
+        return response
+
+    def get_option(self, gid: str) -> Dict[str, str]:
+        response = super().get_option(gid)
+        return response
+
+    def get_global_option(
+        self,
+    ) -> Dict[str, str]:
+        response = super().get_global_option()
         return response
