@@ -1,8 +1,5 @@
 from dataclasses import dataclass
 from typing import List
-from typing import NewType
-
-GID = NewType("GID", str)
 
 
 @dataclass(frozen=True)
@@ -19,3 +16,8 @@ class GlobalStat:
 class Version:
     enabledFeatures: List[str]
     version: str
+
+
+@dataclass(frozen=True)
+class SessionInfo:
+    sessionId: str

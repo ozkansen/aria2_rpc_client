@@ -1,16 +1,18 @@
 from abc import ABC
 from abc import abstractmethod
 from typing import Any
+from typing import Dict
 from typing import List
 
 from .connection import Connection
-from .types import GID
+from .connection import DefaultConnection
 from .types import GlobalStat
+from .types import SessionInfo
 from .types import Version
 
 
 class Client(ABC):
-    def __init__(self, connection: Connection) -> None:
+    def __init__(self, connection: Connection = DefaultConnection()) -> None:
         self._connection = connection
         self.server = connection.make_connection()
 
@@ -19,32 +21,32 @@ class Client(ABC):
         return response
 
     @abstractmethod
-    def add_uri(self, urls: List[str], *params: Any) -> GID:
+    def add_uri(self, urls: List[str], *params: Any) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.addUri"""
 
         response = self.call("aria2.addUri", urls, *params)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
-    def pause(self, gid: GID) -> GID:
+    def pause(self, gid: str) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.pause"""
 
         response = self.call("aria2.pause", gid)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
-    def force_pause(self, gid: GID) -> GID:
+    def force_pause(self, gid: str) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forcePause"""
 
         response = self.call("aria2.forcePause", gid)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
-    def unpause(self, gid: GID) -> GID:
+    def unpause(self, gid: str) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.unpause"""
 
         response = self.call("aria2.unpause", gid)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
     def unpause_all(self) -> str:
@@ -54,18 +56,18 @@ class Client(ABC):
         return str(response)
 
     @abstractmethod
-    def remove(self, gid: GID) -> GID:
+    def remove(self, gid: str) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.remove"""
 
         response = self.call("aria2.remove", gid)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
-    def force_remove(self, gid: GID) -> GID:
+    def force_remove(self, gid: str) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forceRemove"""
 
         response = self.call("aria2.forceRemove", gid)
-        return GID(response)
+        return str(response)
 
     @abstractmethod
     def pause_all(self) -> str:
@@ -104,21 +106,63 @@ class Client(ABC):
         version = Version(**response)
         return version
 
+    @abstractmethod
+    def shutdown(self) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.shutdown"""
+
+        response = self.call("aria2.shutdown")
+        return str(response)
+
+    @abstractmethod
+    def force_shutdown(self) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.forceShutdown"""
+
+        response = self.call("aria2.forceShutdown")
+        return str(response)
+
+    @abstractmethod
+    def get_session_info(self) -> SessionInfo:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.getSessionInfo"""
+
+        response = self.call("aria2.getSessionInfo")
+        return SessionInfo(**response)
+
+    @abstractmethod
+    def save_session(self) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.saveSession"""
+
+        response = self.call("aria2.saveSession")
+        return str(response)
+
+    @abstractmethod
+    def get_option(self, gid: str) -> Dict[str, str]:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.getOption"""
+
+        response = self.call("aria2.getOption", gid)
+        return dict(response)
+
+    @abstractmethod
+    def get_global_option(self) -> Dict[str, str]:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.getGlobalOption"""
+
+        response = self.call("aria2.getGlobalOption")
+        return dict(response)
+
 
 class DefaultClient(Client):
-    def add_uri(self, urls: List[str], *params: Any) -> GID:
+    def add_uri(self, urls: List[str], *params: Any) -> str:
         result = super().add_uri(urls, *params)
         return result
 
-    def pause(self, gid: GID) -> GID:
+    def pause(self, gid: str) -> str:
         response = super().pause(gid)
         return response
 
-    def force_pause(self, gid: GID) -> GID:
+    def force_pause(self, gid: str) -> str:
         response = super().force_pause(gid)
         return response
 
-    def unpause(self, gid: GID) -> GID:
+    def unpause(self, gid: str) -> str:
         response = super().unpause(gid)
         return response
 
@@ -126,11 +170,11 @@ class DefaultClient(Client):
         response = super().unpause_all()
         return response
 
-    def remove(self, gid: GID) -> GID:
+    def remove(self, gid: str) -> str:
         response = super().remove(gid)
         return response
 
-    def force_remove(self, gid: GID) -> GID:
+    def force_remove(self, gid: str) -> str:
         response = super().force_remove(gid)
         return response
 
@@ -152,4 +196,30 @@ class DefaultClient(Client):
 
     def get_version(self) -> Version:
         response = super().get_version()
+        return response
+
+    def shutdown(self) -> str:
+        response = super().shutdown()
+        return response
+
+    def force_shutdown(self) -> str:
+        response = super().force_shutdown()
+        return response
+
+    def get_session_info(self) -> SessionInfo:
+        response = super().get_session_info()
+        return response
+
+    def save_session(self) -> str:
+        response = super().save_session()
+        return response
+
+    def get_option(self, gid: str) -> Dict[str, str]:
+        response = super().get_option(gid)
+        return response
+
+    def get_global_option(
+        self,
+    ) -> Dict[str, str]:
+        response = super().get_global_option()
         return response

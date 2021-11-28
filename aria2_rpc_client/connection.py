@@ -12,7 +12,9 @@ class Connection(Protocol):
 
 
 class DefaultConnection:
-    def __init__(self, host: str, port: str, secret: str = "") -> None:
+    def __init__(
+        self, host: str = "localhost", port: str = "6800", secret: str = ""
+    ) -> None:
         self.host = host
         self.port = port
         self.secret = f"token:{secret}"
