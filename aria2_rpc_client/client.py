@@ -5,13 +5,14 @@ from typing import Dict
 from typing import List
 
 from .connection import Connection
+from .connection import DefaultConnection
 from .types import GlobalStat
 from .types import SessionInfo
 from .types import Version
 
 
 class Client(ABC):
-    def __init__(self, connection: Connection) -> None:
+    def __init__(self, connection: Connection = DefaultConnection()) -> None:
         self._connection = connection
         self.server = connection.make_connection()
 
