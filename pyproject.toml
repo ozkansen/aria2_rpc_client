@@ -4,6 +4,8 @@ version = "0.3.0"
 description = "Aria2 RPC Client"
 authors = ["Özkan ŞEN <ozkansen@gmail.com>"]
 license = "MIT"
+homepage = "https://github.com/ozkansen/aria2_rpc_client"
+repository = "https://github.com/ozkansen/aria2_rpc_client"
 
 [tool.poetry.dependencies]
 python = "^3.8"
