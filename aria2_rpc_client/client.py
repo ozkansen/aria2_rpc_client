@@ -148,6 +148,20 @@ class Client(ABC):
         response = self._call("aria2.getGlobalOption")
         return dict(response)
 
+    @abstractmethod
+    def purge_download_result(self) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.purgeDownloadResult"""
+
+        response = self._call("aria2.purgeDownloadResult")
+        return str(response)
+
+    @abstractmethod
+    def remove_download_result(self, gid: str) -> str:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.removeDownloadResult"""
+
+        response = self._call("aria2.removeDownloadResult", gid)
+        return str(response)
+
 
 class DefaultClient(Client):
     def add_uri(self, urls: List[str], *params: Any) -> str:
@@ -222,4 +236,12 @@ class DefaultClient(Client):
         self,
     ) -> Dict[str, str]:
         response = super().get_global_option()
+        return response
+
+    def purge_download_result(self) -> str:
+        response = super().purge_download_result()
+        return response
+
+    def remove_download_result(self, gid: str) -> str:
+        response = super().remove_download_result(gid)
         return response
