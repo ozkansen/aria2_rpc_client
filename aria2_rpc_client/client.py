@@ -14,10 +14,10 @@ from .types import Version
 class Client(ABC):
     def __init__(self, connection: Connection = DefaultConnection()) -> None:
         self._connection = connection
-        self.server = connection.make_connection()
+        self._server = connection.make_connection()
 
     def _call(self, method: str, *params: Any) -> Any:
-        response = self.server.__getattr__(method)(self._connection.secret, *params)
+        response = self._server.__getattr__(method)(self._connection.secret, *params)
         return response
 
     @abstractmethod
