@@ -6,6 +6,7 @@ from typing import List
 
 from .connection import Connection
 from .connection import DefaultConnection
+from .options import FileDownloadOptions
 from .types import GlobalStat
 from .types import SessionInfo
 from .types import Version
@@ -21,10 +22,10 @@ class Client(ABC):
         return response
 
     @abstractmethod
-    def add_uri(self, urls: List[str], *params: Any) -> str:
+    def add_uri(self, urls: List[str], options: FileDownloadOptions) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.addUri"""
 
-        response = self._call("aria2.addUri", urls, *params)
+        response = self._call("aria2.addUri", urls, options.export())
         return str(response)
 
     @abstractmethod
@@ -164,8 +165,12 @@ class Client(ABC):
 
 
 class DefaultClient(Client):
-    def add_uri(self, urls: List[str], *params: Any) -> str:
-        result = super().add_uri(urls, *params)
+    def add_uri(self, urls: List[str], options: FileDownloadOptions = None) -> str:
+
+        if not options:
+            options = FileDownloadOptions()
+
+        result = super().add_uri(urls, options)
         return result
 
     def pause(self, gid: str) -> str:
