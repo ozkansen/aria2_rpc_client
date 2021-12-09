@@ -1,0 +1,12 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    .mypy_cache,
+    .vscode,
+    build,
+    dist
+max-complexity = 5
+max-line-length = 99
+max-doc-length = 99

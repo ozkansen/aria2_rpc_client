@@ -6,6 +6,9 @@ authors = ["Özkan ŞEN <ozkansen@gmail.com>"]
 license = "MIT"
 homepage = "https://github.com/ozkansen/aria2_rpc_client"
 repository = "https://github.com/ozkansen/aria2_rpc_client"
+readme = "README.md"
+keywords = ["aria2", "rpc", "client", "xmlrpc-client"]
+include = ["LICENSE"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -23,14 +26,14 @@ build-backend = "poetry.core.masonry.api"
 [tool.isort]
 profile = "black"
 src_paths = ["aria2_rpc_client"]
-line_length = 88
+line_length = 99
 force_single_line = true
 multi_line_output = 3
 include_trailing_comma = true
 virtual_env = ".venv"
 
 [tool.black]
-line-length = 88
+line-length = 99
 target-version = ['py38']
 include = '\.pyi?$'
 exclude = '''
