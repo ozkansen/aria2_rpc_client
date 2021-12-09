@@ -1,15 +1,17 @@
 [tool.poetry]
 name = "aria2_rpc_client"
-version = "0.3.0"
+version = "0.4.0"
 description = "Aria2 RPC Client"
 authors = ["Özkan ŞEN <ozkansen@gmail.com>"]
 license = "MIT"
+homepage = "https://github.com/ozkansen/aria2_rpc_client"
+repository = "https://github.com/ozkansen/aria2_rpc_client"
 
 [tool.poetry.dependencies]
 python = "^3.8"
 
 [tool.poetry.dev-dependencies]
-black = "^21.10b0"
+black = "^21.12b0"
 flake8 = "^4.0.1"
 isort = "^5.10.1"
 mypy = "^0.910"
