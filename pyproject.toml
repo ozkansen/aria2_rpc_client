@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aria2_rpc_client"
-version = "0.4.1"
+version = "0.4.2"
 description = "Aria2 RPC Client"
 authors = ["Özkan ŞEN <ozkansen@gmail.com>"]
 license = "MIT"
