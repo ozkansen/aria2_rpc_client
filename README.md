@@ -22,7 +22,8 @@ client = DefaultClient(connection)
 # Download options
 options = FileDownloadOptions()
 options.set_filename("changed.mkv")
-options.set_header("token", "da78d676ds6a86dsa6d8sa6d8")
+options.set_dir("/home/user/downloads")
+options.add_header("token", "da78d676ds6a86dsa6d8sa6d8")
 
 # Download start & set options
 result = client.add_uri(["https://jell.yfish.us/media/jellyfish-15-mbps-hd-h264.mkv"], options)
