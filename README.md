@@ -21,7 +21,8 @@ client = DefaultClient(connection)
 
 # Download options
 options = FileDownloadOptions()
-options.add_filename("changed.mkv")
+options.set_filename("changed.mkv")
+options.set_dir("/home/user/downloads")
 options.add_header("token", "da78d676ds6a86dsa6d8sa6d8")
 
 # Download start & set options

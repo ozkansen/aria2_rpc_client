@@ -6,7 +6,9 @@ from typing import List
 
 from .connection import Connection
 from .connection import DefaultConnection
+from .exceptions import ConnectionRefusedException
 from .options import FileDownloadOptions
+from .options import Options
 from .types import GlobalStat
 from .types import SessionInfo
 from .types import Version
@@ -18,11 +20,17 @@ class Client(ABC):
         self._server = connection.make_connection()
 
     def _call(self, method: str, *params: Any) -> Any:
-        response = self._server.__getattr__(method)(self._connection.secret, *params)
-        return response
+        try:
+            response = self._server.__getattr__(method)(self._connection.secret, *params)
+            return response
+
+        except ConnectionRefusedError as exc:
+            raise ConnectionRefusedException(
+                msg="Connection refused or server is not found.", from_exc=exc
+            )
 
     @abstractmethod
-    def add_uri(self, urls: List[str], options: FileDownloadOptions) -> str:
+    def add_uri(self, urls: List[str], options: Options) -> str:
         """https://aria2.github.io/manual/en/html/aria2c.html#aria2.addUri"""
 
         response = self._call("aria2.addUri", urls, options.export())
@@ -165,7 +173,7 @@ class Client(ABC):
 
 
 class DefaultClient(Client):
-    def add_uri(self, urls: List[str], options: FileDownloadOptions = None) -> str:
+    def add_uri(self, urls: List[str], options: Options = None) -> str:
 
         if not options:
             options = FileDownloadOptions()
