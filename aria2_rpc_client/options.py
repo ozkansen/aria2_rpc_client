@@ -15,7 +15,7 @@ class Options:
 
 
 class FileDownloadOptions(Options):
-    def add_dir(self, path: Union[Path, str]) -> None:
+    def set_dir(self, path: Union[Path, str]) -> None:
         """Set download folder"""
 
         if isinstance(path, str):
@@ -23,7 +23,7 @@ class FileDownloadOptions(Options):
 
         self._options["dir"] = path.as_posix()
 
-    def add_filename(self, name: str) -> None:
+    def set_filename(self, name: str) -> None:
         """Set filename name='abc.zip'"""
         self._options["out"] = name
 
