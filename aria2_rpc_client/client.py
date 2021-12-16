@@ -171,6 +171,20 @@ class Client(ABC):
         response = self._call("aria2.removeDownloadResult", gid)
         return str(response)
 
+    @abstractmethod
+    def tell_status(self, gid: str) -> Dict[Any, Any]:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.tellStatus"""
+
+        response = self._call("aria2.tellStatus", gid)
+        return dict(response)
+
+    @abstractmethod
+    def tell_active(self) -> List[Dict[Any, Any]]:
+        """https://aria2.github.io/manual/en/html/aria2c.html#aria2.tellActive"""
+
+        response = self._call("aria2.tellActive")
+        return list(response)
+
 
 class DefaultClient(Client):
     def add_uri(self, urls: List[str], options: Options = None) -> str:
@@ -257,4 +271,12 @@ class DefaultClient(Client):
 
     def remove_download_result(self, gid: str) -> str:
         response = super().remove_download_result(gid)
+        return response
+
+    def tell_status(self, gid: str) -> Dict[Any, Any]:
+        response = super().tell_status(gid)
+        return response
+
+    def tell_active(self) -> List[Dict[Any, Any]]:
+        response = super().tell_active()
         return response
