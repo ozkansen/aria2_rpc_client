@@ -20,7 +20,6 @@
     "python.linting.flake8Enabled": true,
     "python.formatting.provider": "black",
     "python.sortImports.args": [
-        "-rc",
         "--atomic"
     ]
 }
